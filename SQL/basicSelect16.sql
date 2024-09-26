@@ -1,0 +1,2 @@
+SELECT NAME FROM EMPLOYEE ORDER BY NAME;
+// ORDER BY NAME means alphabetically order 

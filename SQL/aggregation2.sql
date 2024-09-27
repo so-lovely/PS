@@ -1,0 +1,7 @@
+ALTER TABLE EMPLOYEES
+ADD COLUMN Without_Zero INT;
+
+UPDATE EMPLOYEES
+SET Without_Zero = REPLACE(Salary, '0', '');
+
+SELECT CEIL(AVG(Salary) - AVG(Without_Zero)) FROM EMPLOYEES;

@@ -1,0 +1,3 @@
+WITH OrderedTable AS 
+(SELECT h.hacker_id, h.name, COUNT(c.challenge_id) AS ChallengeCount FROM Hackers AS h JOIN Challenges AS c ON h.hacker_id = c.hacker_id GROUP BY h.hacker_id, h.name) 
+SELECT * FROM Temp WHERE ChallengeCount IN (SELECT ChallengeCount FROM Temp GROUP BY ChallengeCount HAVING COUNT(ChallengeCount)=1) OR ChallengeCount = (SELECT MAX(ChallengeCount) FROM OrderedTable) ORDER BY ChallengeCount DESC, hacker_id;

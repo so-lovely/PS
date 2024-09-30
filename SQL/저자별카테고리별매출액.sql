@@ -1,0 +1,15 @@
+WITH CombinedTable AS (
+SELECT a.AUTHOR_ID, a.AUTHOR_NAME, b.CATEGORY, s.SALES_DATE,
+       b.PRICE, s.SALES, b.BOOK_ID
+       FROM BOOK b JOIN AUTHOR a on b.AUTHOR_ID = a.AUTHOR_ID
+                   JOIN BOOK_SALES s on b.BOOK_ID = s.BOOK_ID
+)
+
+SELECT AUTHOR_ID, AUTHOR_NAME, CATEGORY, 
+       SUM(CASE 
+            WHEN DATE_FORMAT(SALES_DATE, "%Y-%m") = '2022-01' 
+            THEN PRICE*SALES
+           ELSE 0
+          END) AS TOTAL_SALES FROM CombinedTable
+GROUP BY 1, 3
+ORDER BY 1, 3 DESC
